@@ -22,6 +22,7 @@ function renderMembers(members) {
 
     row.innerHTML = `
       <td>${member.nombre ?? ""}</td>
+      <td>${member.apellido ?? ""}</td>
       <td>${member.legajo ?? ""}</td>
       <td>${member.feature ?? ""}</td>
       <td>${member.servicio ?? ""}</td>
