@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TeamBoard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 24px;
+      background-color: #f4f6f8;
+      color: #1f2937;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      padding: 24px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+
+    .status-box {
+      display: inline-block;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      background-color: #e5e7eb;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      text-align: left;
+    }
+
+    th {
+      background-color: #111827;
+      color: white;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f9fafb;
+    }
+
+    .message {
+      margin-top: 16px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>TeamBoard</h1>
+    <p id="group-name">Grupo: UTN FRLP - Cátedra de Ingeniería y Calidad de Software - 2026</p>
+
+    <div id="backend-status" class="status-box">
+      Verificando estado del backend...
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Legajo</th>
+          <th>Feature</th>
+          <th>Servicio</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody id="team-table-body">
+      </tbody>
+    </table>
+
+    <p id="message" class="message"></p>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
