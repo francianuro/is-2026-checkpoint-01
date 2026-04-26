@@ -1,5 +1,5 @@
-import os from flask
-import Flask, jsonify
+import os
+from flask import Flask, jsonify
 import psycopg2
 from psycopg2 import OperationalError, ProgrammingError
 
@@ -15,7 +15,8 @@ DB_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
 if not all([DB_NAME, DB_USER, DB_PASSWORD]):
     raise ValueError("Faltan variables de entorno de la base de datos (.env)")
 
-def get_db_connection(): return psycopg2.connect(
+def get_db_connection():
+    return psycopg2.connect(
         host=DB_HOST,
         port=DB_PORT,
         dbname=DB_NAME,
@@ -26,37 +27,53 @@ def get_db_connection(): return psycopg2.connect(
 @app.route("/api/health", methods=["GET"])
 def health():
     """Docker usa este endpoint para el HEALTHCHECK"""
-    return jsonify({"status": "active", "service":
-    "backend"})
+    return jsonify({"status": "active", "service": "backend"})
 
 @app.route("/api/team", methods=["GET"])
 def get_team():
     """Devuelve la lista de integrantes leyendo la tabla
     members"""
-    conn = None 
+    conn = None
 
     try:
-        conn = get_db_connection() with conn.cursor() as
-        cur:
-            cur.execute("SELECT nombre, apellido, legajo,
-            feature, servicio, estado FROM members ORDER BY
-            id;") rows = cur.fetchall()
+        conn = get_db_connection()
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT nombre, apellido, legajo, feature, servicio, estado "
+                "FROM members ORDER BY id;"
+            )
+            rows = cur.fetchall()
 
         team = [
             {
                 "nombre": r[0],
                 "apellido": r[1],
-                "legajo": r[2], l
+                "legajo": r[2],
                 "feature": r[3],
                 "servicio": r[4],
                 "estado": r[5]
-            } for r in rows
-        ] return jsonify(team)
+            }
+            for r in rows
+        ]
+
+        return jsonify(team)
+
     except OperationalError as e:
-        return jsonify({"error": "Database connection
-        failed", "details": str(e)}), 500
-    except ProgrammingError as e: return jsonify({"error":
-        "Query error", "details": str(e)}), 500
+        return jsonify(
+            { 
+                "error": "Database connection failed", 
+                "details": str(e)
+            }
+        ), 500
+
+    except ProgrammingError as e: 
+        return jsonify(
+            {
+                "error": "Query error", 
+                "details": str(e)
+            }
+        ), 500
+
     finally:
         if conn:
             conn.close()
@@ -64,6 +81,7 @@ def get_team():
 @app.route("/api/info", methods=["GET"])
 def info():
     """Metadata del servicio"""
+
     return jsonify({
         "service": "TeamBoard Backend",
         "version": "1.0.0",
