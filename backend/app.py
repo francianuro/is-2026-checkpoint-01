@@ -32,7 +32,10 @@ def health():
 @app.route("/api/team", methods=["GET"])
 def get_team():
     """Devuelve la lista de integrantes leyendo la tabla
-    members""" conn = None try:
+    members"""
+    conn = None 
+
+    try:
         conn = get_db_connection() with conn.cursor() as
         cur:
             cur.execute("SELECT nombre, apellido, legajo,
@@ -48,8 +51,8 @@ def get_team():
                 "servicio": r[4],
                 "estado": r[5]
             } for r in rows
-        ] return jsonify(team) except OperationalError as
-    e:
+        ] return jsonify(team)
+    except OperationalError as e:
         return jsonify({"error": "Database connection
         failed", "details": str(e)}), 500
     except ProgrammingError as e: return jsonify({"error":
