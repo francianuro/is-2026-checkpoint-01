@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS members {
+CREATE TABLE IF NOT EXISTS members (
     id SERIAL PRIMARY KEY,
     nombre varchar(30) NOT NULL,
     apellido varchar(30) NOT NULL,
@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS members {
     feature TEXT,
     servicio TEXT,
     estado VARCHAR(20) DEFAULT 'activo'
-};
+);
 
 INSERT INTO  miembros (nombre,apellido,legajo,feature,servicio,estado) VALUES
 ('Francina','Ruaro', '33278', 'feature01','coordinador/a del grupo','activo'),    
