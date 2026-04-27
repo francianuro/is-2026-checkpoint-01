@@ -1,6 +1,29 @@
 # is-2026-checkpoint-01
 Trabajo practico grupal para la materia ingenieria de software - UTN FRLP - 2026
 
+| Integrante               | Feature    |
+|--------------------------|-----------|
+| Ruaro Francina           | Feature 01 |
+| Pierrard Facundo         | Feature 02 |
+| Ardenghi Ernesto Helvio  | Feature 03 |
+| Huari Cesar Antonio      | Feature 04 |
+
+## Arquitectura
+
+- **frontend** → interfaz web 
+- **backend** → API REST desarrollada en Flask  
+- **database** → base de datos PostgreSQL (`postgres:16-alpine`)  
+
+
+## Tecnologías utilizadas
+
+- Python 3.12-slim
+- Flask
+- PostgreSQL 16-alpine
+- Docker
+- Docker Compose
+
+
 ## Configuración del proyecto
 Copiar el archivo .env.example a .env y completar las variables con los valores deseados.  
 
