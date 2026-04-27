@@ -1,26 +1,51 @@
-backend:
-  build: ./backend
-  container_name: api-backend
-  restart: unless-stopped
-  environment:
-    POSTGRES_HOST: db
-    POSTGRES_PORT: 5432
-    POSTGRES_DB: ${POSTGRES_DB}
-    POSTGRES_USER: ${POSTGRES_USER}
-    POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    ports:
-      - "5000:5000"
-    depends_on:
-      db:
-        condition: service_healthy
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:5000/api/health || exit 1"]
-      interval: 15s
-      timeout: 5s
-      retries: 3
-      start_period: 20s
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 256M
+services:
+  backend:
+    build: ./backend
+    container_name: api-backend
+    restart: unless-stopped
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      ports:
+        - "5000:5000"
+      depends_on:
+        db:
+          condition: service_healthy
+      healthcheck:
+        test: ["CMD-SHELL", "curl -f http://localhost:5000/api/health || exit 1"]
+        interval: 15s
+        timeout: 5s
+        retries: 3
+        start_period: 20s
+      deploy:
+        resources:
+          limits:
+            cpus: '0.50'
+            memory: 256M
+            
+  portainer:
+      image: portainer/portainer-ce:latest
+      container_name: teamboard_portainer
+      restart: unless-stopped
+      ports:
+        - "9000:9000"
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - portainer_data:/data
+      deploy:
+        resources:
+          limits:
+            cpus: '0.50'
+            memory: 256M
+      healthcheck:
+        test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:9000/ || exit 1"]
+        interval: 15s
+        timeout: 5s
+        retries: 3
+        start_period: 30s
+
+volumes:
+  portainer_data:
