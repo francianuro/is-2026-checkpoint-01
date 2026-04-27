@@ -1,9 +1,11 @@
 import os
 from flask import Flask, jsonify
+from flask_cors import CORS
 import psycopg2
 from psycopg2 import OperationalError, ProgrammingError
 
 app = Flask(__name__)
+CORS(app)
 
 # Credenciales SIEMPRE desde variables de entorno
 DB_HOST = os.environ.get("POSTGRES_HOST", "db")
