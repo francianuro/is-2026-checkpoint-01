@@ -1,20 +1,25 @@
 # 1. Imagen slim con versión fija (buena práctica obligatoria)
-FROM python:3.12-slim WORKDIR /app
+FROM python:3.12.4-slim 
+WORKDIR /app
 
-# 2. Copiar requirements PRIMERO para aprovechar caché de 
+# 2. Crear usuario no-root ants de copiar archivos (Buena práctica obligatoria)
+RUN groupadd -r appuser && useradd -r -g appuser -s /bin/false appuser
+
+# 3. Agrego dependencia para el HEALTHCHECK
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
+# 4. Copiar requirements PRIMERO para aprovechar caché de 
 # capas de Docker (Buena práctica obligatoria)
-COPY requirements.txt . RUN pip install --no-cache-dir -r 
-requirements.txt
+COPY requirements.txt . 
+RUN pip install --no-cache-dir -r requirements.txt
 
-# 3. Copiar código de la aplicación
-COPY app.py .
+# 5 Copiar código de la aplicación con permisos
+COPY --chown=appuser:appuser app.py .
 
-# 4. Definir usuario no-root (Buena práctica obligatoria)
-RUN groupadd -r appuser && \ useradd -r -g appuser -s 
-    /bin/false appuser
+# 6. Cambiar a usuario no-root para la ejecución 
+USER appuser 
 
-# Asignar permisos y cambiar a usuario no-root
-RUN chown -R appuser:appuser /app USER appuser EXPOSE 5000
+EXPOSE 5000
 
 # Ejecutar con Gunicorn (production-ready) en el puerto 
 # 5000
