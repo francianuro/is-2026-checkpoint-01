@@ -55,7 +55,7 @@ services:
       start_period: 10s
             
   portainer:
-      image: portainer/portainer-ce:2.40.0-alpine
+      image: portainer/portainer-ce:latest
       container_name: portainer
       restart: unless-stopped
       ports:
@@ -63,13 +63,6 @@ services:
       volumes:
         - /var/run/docker.sock:/var/run/docker.sock
         - portainer_data:/data
-        
-      healthcheck:
-        test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:9000/ || exit 1"]
-        interval: 15s
-        timeout: 5s
-        retries: 3
-        start_period: 30s
 
 volumes:
   postgres_data:
