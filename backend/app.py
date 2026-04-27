@@ -26,8 +26,12 @@ def get_db_connection():
 
 @app.route("/api/health", methods=["GET"])
 def health():
-    """Docker usa este endpoint para el HEALTHCHECK"""
-    return jsonify({"status": "active", "service": "backend"})
+    try:
+        conn = get_db_connection()
+        conn.close()
+        return jsonify({"status": "healthy"})
+    except:
+        return jsonify({"status": "unhealthy"}), 500
 
 @app.route("/api/team", methods=["GET"])
 def get_team():
