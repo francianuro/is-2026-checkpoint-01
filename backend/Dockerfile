@@ -5,16 +5,18 @@ WORKDIR /app
 # 2. Crear usuario no-root ants de copiar archivos (Buena práctica obligatoria)
 RUN groupadd -r appuser && useradd -r -g appuser -s /bin/false appuser
 
-# 3. Copiar requirements PRIMERO para aprovechar caché de 
+# 3. Agrego dependencia para el HEALTHCHECK
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
+# 4. Copiar requirements PRIMERO para aprovechar caché de 
 # capas de Docker (Buena práctica obligatoria)
 COPY requirements.txt . 
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 4. Copiar código de la aplicación con permisos
+# 5 Copiar código de la aplicación con permisos
 COPY --chown=appuser:appuser app.py .
 
-
-# 5. Cambiar a usuario no-root para la ejecución 
+# 6. Cambiar a usuario no-root para la ejecución 
 USER appuser 
 
 EXPOSE 5000
