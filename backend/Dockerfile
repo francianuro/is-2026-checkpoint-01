@@ -15,7 +15,8 @@ RUN groupadd -r appuser && \
     useradd -r -g appuser -s /bin/false appuser
 
 # Asignar permisos y cambiar a usuario no-root
-RUN chown -R appuser:appuser /app USER appuser 
+RUN chown -R appuser:appuser /app 
+USER appuser 
 
 EXPOSE 5000
 
