@@ -1,6 +1,12 @@
 # is-2026-checkpoint-01
 Trabajo practico grupal para la materia ingenieria de software - UTN FRLP - 2026
 
+## Configuración del proyecto
+Copiar el archivo .env.example a .env y completar las variables con los valores deseados.  
+
+Luego ejecutar:
+```docker compose up -d --build```
+
 
 ## Panel de Monitoreo: Portainer
 - **Acceso**: `http://localhost:9000`
