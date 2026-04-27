@@ -1,12 +1,14 @@
 # is-2026-checkpoint-01
 Trabajo practico grupal para la materia ingenieria de software - UTN FRLP - 2026
 
-| Integrante               | Feature    |
-|--------------------------|-----------|
-| Ruaro Francina           | Feature 01 |
-| Pierrard Facundo         | Feature 02 |
-| Ardenghi Ernesto Helvio  | Feature 03 |
-| Huari Cesar Antonio      | Feature 04 |
+## Integrantes
+
+| Integrante               | Feature(s)              |
+|--------------------------|------------------------|
+| Ruaro Francina           | Feature 01             |
+| Pierrard Facundo         | Feature 02             |
+| Ardenghi Ernesto Helvio  | Feature 03             |
+| Huari Cesar Antonio      | Feature 04, Feature 05 |
 
 ## Arquitectura
 
