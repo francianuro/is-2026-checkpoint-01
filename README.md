@@ -14,3 +14,5 @@ Luego ejecutar:
 - **Función**: Interfaz web para ver, reiniciar y monitorear los contenedores del proyecto sin usar terminal.
 - **Persistencia**: Configuración guardada en el volumen nombrado `portainer_data`.
 - **Socket**: Monta `/var/run/docker.sock` para comunicarse directamente con el daemon de Docker.
+
+![Panel de Portainer mostrando contenedores en ejecución](assets/portainer.png "Vista de contenedores en Portainer")
